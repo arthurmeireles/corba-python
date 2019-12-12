@@ -1,15 +1,15 @@
 import sys, os
-import CORBA, Fortune, Fortune_ _POA
+import CORBA, Fortune, Fortune__POA
 
 FORTUNE_PATH = "/usr/games/fortune"
 
-class CookieServer_i(Fortune_ _POA.CookieServer):
+class CookieServer_i(Fortune__POA.CookieServer):
     def get_cookie(self):
         pipe   = os.popen(FORTUNE_PATH)
         cookie = pipe.read(  )
         if pipe.close(  ):
             # An error occurred with the pipe
-            cookie = "Oh dear, couldn't get a fortune\n"
+            cookie = "Deu certo, finalmente!!! \n"
         return cookie
 
 orb = CORBA.ORB_init(sys.argv)
