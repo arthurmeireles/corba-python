@@ -1,19 +1,14 @@
-import CORBA, Fortune, sys
-orb = CORBA.ORB_init(sys.argv, CORBA.ORB_ID)
-#pegar o argumento de entrada
-ior = sys.argv[1]
-#converte o objeto em string, algo assim.
-o = orb.string_to_object(ior)
-o = o._narrow(Fortune.CookieServer)
-print o.get_cookie(  )
+import Fortune, sys
+from omniORB import CORBA
 
+orb = CORBA.ORB_init()
 
+obj = orb.string_to_object("corbaname::localhost:1050/NameService#cookie")
+cokie = obj._narrow(Fortune.CookieServer)
 
+if cokie is None:
+    print("Can't narrow reference")
+    sys.exit(1)
 
+print(cokie.get_cookie())
 
-
-# import CORBA, Fortune
-# orb = CORBA.ORB_init(  )
-# o = orb.string_to_object("corbaloc::host.example.com/fortune")
-# o = o._narrow(Fortune.CookieServer)
-# print o.get_cookie(  )
